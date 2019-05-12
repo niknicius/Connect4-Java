@@ -72,7 +72,7 @@ class Board {
      * @throws Exception Invalid Move Exception
      */
     void changeTile(int column, char player) throws ColumnFullException {
-        if(column == 0 || column > this.columns - 1 || !this.columnIsFree(column)) throw new ColumnFullException("Column full");
+        if(column == 0 || column > this.columns|| !this.columnIsFree(column)) throw new ColumnFullException("Column full");
         else{
             insertOnColumn(column,player);
         }
