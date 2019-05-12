@@ -24,7 +24,7 @@ class Board {
         for(int i = 0; i < lines; i++){
             char[] line = new char[columns];
             for(int k = 0; k < line.length; k++){
-                line[k] = '0';
+                line[k] = 'O';
             }
             this.tiles[i] = line;
         }
@@ -86,7 +86,7 @@ class Board {
     private void insertOnColumn(int column, char player){
         int lineOfLastColumnFree = 0;
         for(int i = 0; i < this.lines; i++){
-            if(i + 1 < this.lines && this.tiles[i + 1][column - 1] == '0' ){
+            if(i + 1 < this.lines && this.tiles[i + 1][column - 1] == 'O' ){
                 lineOfLastColumnFree++;
             }
             else{
@@ -105,7 +105,7 @@ class Board {
      * @return true if coordinate is playable, false if not
      */
     private boolean columnIsFree(int column){
-        return this.tiles[0][column - 1] == '0';
+        return this.tiles[0][column - 1] == 'O';
     }
 
 }
