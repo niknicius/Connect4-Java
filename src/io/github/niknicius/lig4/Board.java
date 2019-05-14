@@ -68,22 +68,26 @@ class Board {
     /**
      * checks if a valid move, if true, changes the tile
      * @param column column to check
-     * @param player char representing the player
-     * @throws Exception Invalid Move Exception
+     * @param playerChar char representing the player
+     * @throws ColumnFullException Invalid Move Exception
      */
-    void changeTile(int column, char player) throws ColumnFullException {
+    int changeTile(int column, char playerChar) throws ColumnFullException {
+        int line;
         if(column == 0 || column > this.columns|| !this.columnIsFree(column)) throw new ColumnFullException("Column full");
         else{
-            insertOnColumn(column,player);
+            line = insertOnColumn(column,playerChar);
         }
+
+        return line;
     }
 
     /**
      * goes through the column until it finds something other than 0 and then plays the part on top
      * @param column column to be played
-     * @param player char representing the player
+     * @param playerChar char representing the player
+     * @return line of last column free
      */
-    private void insertOnColumn(int column, char player){
+    private int insertOnColumn(int column, char playerChar){
         int lineOfLastColumnFree = 0;
         for(int i = 0; i < this.lines; i++){
             if(i + 1 < this.lines && this.tiles[i + 1][column - 1] == 'O' ){
@@ -94,8 +98,8 @@ class Board {
             }
         }
 
-        this.tiles[lineOfLastColumnFree][column - 1] = player;
-
+        this.tiles[lineOfLastColumnFree][column - 1] = playerChar;
+        return lineOfLastColumnFree;
     }
 
 
@@ -106,6 +110,27 @@ class Board {
      */
     private boolean columnIsFree(int column){
         return this.tiles[0][column - 1] == 'O';
+    }
+
+
+    boolean checkColumn(int line, int column, char character){
+        int size = 0;
+        for(int i = line; i < this.lines; i++){
+            System.out.println("line " + line);
+            System.out.println("column " + (column - 1));
+            System.out.println("char " + character);
+            if(this.tiles[i][column - 1] == character){
+                size++;
+                System.out.println("aqui tb");
+            }
+        }
+
+        if(size == 4){
+            System.out.println("DEBUG: column size" + size);
+            return true;
+        }
+        System.out.println("DEBUG: column " + column  + " size" + size);
+        return false;
     }
 
 }
